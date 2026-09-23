@@ -126,7 +126,9 @@ export default function Departments() {
                       onChange={(e) => updateHeadDoctor(dept.dept_id, e.target.value)}
                     >
                       <option value="">-- None --</option>
-                      {doctors.map(doc => (
+                      {doctors
+                        .filter(doc => doc.dept_id === dept.dept_id)
+                        .map(doc => (
                         <option key={doc.doctor_id} value={doc.doctor_id}>
                           Dr. {doc.first_name} {doc.last_name}
                         </option>

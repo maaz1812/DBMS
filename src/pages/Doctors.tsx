@@ -108,6 +108,7 @@ export default function Doctors() {
               <th className="p-4">ID</th>
               <th className="p-4">Name</th>
               <th className="p-4">Specialization</th>
+              <th className="p-4">Position</th>
               <th className="p-4">Dept ID</th>
               <th className="p-4">Fee</th>
               <th className="p-4">Phone</th>
@@ -115,20 +116,30 @@ export default function Doctors() {
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan={6} className="p-4 text-center">Loading...</td></tr>
+              <tr><td colSpan={7} className="p-4 text-center">Loading...</td></tr>
             ) : doctors.length === 0 ? (
-              <tr><td colSpan={6} className="p-4 text-center">No doctors found.</td></tr>
+              <tr><td colSpan={7} className="p-4 text-center">No doctors found.</td></tr>
             ) : (
-              doctors.map(doc => (
-                <tr key={doc.doctor_id} className="border-b last:border-0 hover:bg-gray-50">
-                  <td className="p-4">{doc.doctor_id}</td>
-                  <td className="p-4 font-medium">{doc.first_name} {doc.last_name}</td>
-                  <td className="p-4">{doc.specialization}</td>
-                  <td className="p-4">{doc.dept_id || '-'}</td>
-                  <td className="p-4">${doc.fee?.toFixed(2)}</td>
-                  <td className="p-4">{doc.phone}</td>
-                </tr>
-              ))
+              doctors.map(doc => {
+                const isHead = departments.some(d => d.head_doctor_id === doc.doctor_id);
+                return (
+                  <tr key={doc.doctor_id} className="border-b last:border-0 hover:bg-gray-50">
+                    <td className="p-4">{doc.doctor_id}</td>
+                    <td className="p-4 font-medium">{doc.first_name} {doc.last_name}</td>
+                    <td className="p-4">{doc.specialization}</td>
+                    <td className="p-4">
+                      {isHead ? (
+                        <span className="px-2 py-1 bg-teal-100 text-teal-800 text-xs rounded-full font-medium">Head of Department</span>
+                      ) : (
+                        <span className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">Attending Doctor</span>
+                      )}
+                    </td>
+                    <td className="p-4">{doc.dept_id || '-'}</td>
+                    <td className="p-4">${doc.fee?.toFixed(2)}</td>
+                    <td className="p-4">{doc.phone}</td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
