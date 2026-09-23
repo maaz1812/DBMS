@@ -10,13 +10,12 @@ type Patient = Database['public']['Tables']['patients']['Row'];
 export default function Pharmacy() {
   const [medications, setMedications] = useState<Medication[]>([]);
   const [admissions, setAdmissions] = useState<(Admission & { patients: Patient })[]>([]);
-  const [loading, setLoading] = useState(true);
+
   
   const [newMed, setNewMed] = useState({ med_name: '', unit_price: '', stock_qty: '' });
   const [prescription, setPrescription] = useState({ admission_id: '', med_id: '', quantity: '', dosage_instructions: '' });
 
   const fetchData = async () => {
-    setLoading(true);
     const [medRes, admRes] = await Promise.all([
       supabase.from('medications').select('*').order('med_name'),
       supabase.from('admissions').select('*, patients(*)').is('discharge_date', null)
@@ -27,8 +26,6 @@ export default function Pharmacy() {
     
     if (admRes.error) toast.error('Failed to load admissions');
     else setAdmissions(admRes.data as any || []);
-    
-    setLoading(false);
   };
 
   useEffect(() => {
