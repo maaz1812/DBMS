@@ -27,29 +27,52 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">Dashboard</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex items-center gap-4">
-          <div className="bg-blue-100 p-4 rounded-full text-blue-600"><Users size={24} /></div>
-          <div>
-            <p className="text-gray-500 text-sm">Total Patients</p>
-            <p className="text-2xl font-semibold">{stats.patients}</p>
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Overview</h2>
+        <p className="text-sm text-gray-500 mt-1">Welcome back. Here is what is happening today.</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        {/* Stat Card 1 */}
+        <div className="surface-card p-6">
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-sm font-medium text-gray-500">Total Patients</p>
+            <Users size={20} className="text-teal-700" />
           </div>
+          <p className="text-3xl font-semibold text-gray-900">{stats.patients}</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex items-center gap-4">
-          <div className="bg-green-100 p-4 rounded-full text-green-600"><Bed size={24} /></div>
-          <div>
-            <p className="text-gray-500 text-sm">Active Admissions</p>
-            <p className="text-2xl font-semibold">{stats.activeAdmissions}</p>
+        
+        {/* Stat Card 2 */}
+        <div className="surface-card p-6">
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-sm font-medium text-gray-500">Active Admissions</p>
+            <Bed size={20} className="text-teal-700" />
           </div>
+          <p className="text-3xl font-semibold text-gray-900">{stats.activeAdmissions}</p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex items-center gap-4">
-          <div className="bg-purple-100 p-4 rounded-full text-purple-600"><Calendar size={24} /></div>
-          <div>
-            <p className="text-gray-500 text-sm">Appointments Today</p>
-            <p className="text-2xl font-semibold">{stats.appointmentsToday}</p>
+
+        {/* Stat Card 3 */}
+        <div className="surface-card p-6">
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-sm font-medium text-gray-500">Appointments Today</p>
+            <Calendar size={20} className="text-teal-700" />
           </div>
+          <p className="text-3xl font-semibold text-gray-900">{stats.appointmentsToday}</p>
         </div>
+
+        {/* Stat Card 4 (Placeholder for Doctors) */}
+        <div className="surface-card p-6">
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-sm font-medium text-gray-500">System Status</p>
+            <div className="w-2 h-2 rounded-full bg-teal-500"></div>
+          </div>
+          <p className="text-3xl font-semibold text-gray-900">Online</p>
+        </div>
+      </div>
+      
+      {/* Example Empty State for Lists below */}
+      <div className="surface-card p-8 text-center text-gray-500">
+        <p className="text-sm font-medium">Select a module from the sidebar to manage hospital records.</p>
       </div>
     </div>
   );
